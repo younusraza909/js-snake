@@ -80,6 +80,15 @@ export default function Home() {
       return;
     }
 
+    // Checking If snake bit itself
+    const isBit = snake
+      .slice(1)
+      .some((ele) => ele.x === snake[0].x && ele.y === snake[0].y);
+    if (isBit) {
+      gameOver();
+      return;
+    }
+
     let newSnake = [...snake];
     if (direction === "UP") {
       newSnake.unshift({ x: newSnake[0].x - 1, y: newSnake[0].y });
