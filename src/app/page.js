@@ -54,8 +54,8 @@ export default function Home() {
   }
 
   function renderFood() {
-    let randomX = Math.floor(Math.random() * totalGridSize) + 1;
-    let randomY = Math.floor(Math.random() * totalGridSize) + 1;
+    let randomX = Math.floor(Math.random() * totalGridSize);
+    let randomY = Math.floor(Math.random() * totalGridSize);
 
     setFood({
       x: randomX,
@@ -111,23 +111,23 @@ export default function Home() {
 
     switch (key) {
       case "ArrowUp":
-        setDirection("UP");
+        if (direction !== "DOWN") setDirection("UP");
         break;
       case "ArrowDown":
-        setDirection("DOWN");
+        if (direction !== "UP") setDirection("DOWN");
         break;
       case "ArrowLeft":
-        setDirection("LEFT");
+        if (direction !== "RIGHT") setDirection("LEFT");
         break;
       case "ArrowRight":
-        setDirection("RIGHT");
+        if (direction !== "LEFT") setDirection("RIGHT");
         break;
     }
   }
 
   // Handle Events and Effects
   useEffect(() => {
-    let moveSnake = setInterval(updateGame, 500);
+    let moveSnake = setInterval(updateGame, 150);
     return () => clearInterval(moveSnake);
   });
 
