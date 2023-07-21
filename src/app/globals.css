@@ -41,3 +41,7 @@
 .snake {
   background-color: green;
 }
+
+.snake-head {
+  background-color: black;
+}

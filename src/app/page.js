@@ -34,6 +34,8 @@ export default function Home() {
 
         let isFood = food.x === row && food.y === col;
 
+        let isSnakeHead = snake[0].x === row && snake[0].y === col;
+
         let isSnake = snake.some((ele) => ele.x === row && ele.y === col);
 
         if (isFood) {
@@ -41,7 +43,11 @@ export default function Home() {
         }
 
         if (isSnake) {
-          classes = `${classes} snake food`;
+          classes = `${classes} snake`;
+        }
+
+        if (isSnakeHead) {
+          classes = `${classes} snake-head`;
         }
 
         let cell = <div key={`${row}-${col}`} className={classes}></div>;
