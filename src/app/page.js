@@ -53,7 +53,15 @@ export default function Home() {
     return cellArray;
   }
 
-  function renderFood() {}
+  function renderFood() {
+    let randomX = Math.floor(Math.random() * totalGridSize) + 1;
+    let randomY = Math.floor(Math.random() * totalGridSize) + 1;
+
+    setFood({
+      x: randomX,
+      y: randomY,
+    });
+  }
 
   function gameOver() {
     setSnake(snakeIntialPosition);
@@ -86,7 +94,14 @@ export default function Home() {
       newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y + 1 });
     }
 
-    newSnake.pop();
+    // checking if food was eaten on not
+    if (newSnake[0].x === food.x && newSnake[0].y === food.y) {
+      // Ate Food
+      setScore((sco) => sco + 1);
+      renderFood();
+    } else {
+      newSnake.pop();
+    }
 
     setSnake(newSnake);
   }
