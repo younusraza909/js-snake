@@ -54,16 +54,16 @@ export default function Home() {
   function updateGame() {
     let newSnake = [...snake];
     if (direction === "UP") {
-      newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y - 1 });
-    }
-    if (direction === "DOWN") {
-      newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y + 1 });
-    }
-    if (direction === "LEFT") {
       newSnake.unshift({ x: newSnake[0].x - 1, y: newSnake[0].y });
     }
-    if (direction === "RIGHT") {
+    if (direction === "DOWN") {
       newSnake.unshift({ x: newSnake[0].x + 1, y: newSnake[0].y });
+    }
+    if (direction === "LEFT") {
+      newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y - 1 });
+    }
+    if (direction === "RIGHT") {
+      newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y + 1 });
     }
 
     newSnake.pop();
@@ -71,11 +71,37 @@ export default function Home() {
     setSnake(newSnake);
   }
 
+  function updateDirection(e) {
+    let key = e.code;
+
+    switch (key) {
+      case "ArrowUp":
+        setDirection("UP");
+        break;
+      case "ArrowDown":
+        setDirection("DOWN");
+        break;
+      case "ArrowLeft":
+        setDirection("LEFT");
+        break;
+      case "ArrowRight":
+        setDirection("RIGHT");
+        break;
+    }
+  }
+
+  console.log("direction", direction);
+
   // Handle Events and Effects
   useEffect(() => {
-    let moveSnake = setInterval(updateGame, 50);
-
+    let moveSnake = setInterval(updateGame, 500);
     return () => clearInterval(moveSnake);
+  });
+
+  useEffect(() => {
+    document.addEventListener("keydown", updateDirection);
+
+    return () => document.removeEventListener("keydown", updateDirection);
   });
 
   return (
