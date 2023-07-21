@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  background-color: black;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(20, 30px);
+  grid-template-rows: repeat(20, 30px);
+  width: max-content;
+  gap: 1px;
+  border: 1px solid #111;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+}
+
+.food {
+  background-color: red;
+}
+
+.snake {
+  background-color: green;
+}
