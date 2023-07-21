@@ -5,13 +5,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   let totalGridSize = 20;
 
-  // Game State
-  const [score, setScore] = useState(0);
-  const [food, setFood] = useState({
-    x: 5,
-    y: 5,
-  });
-  const [snake, setSnake] = useState([
+  let snakeIntialPosition = [
     {
       x: totalGridSize / 2,
       y: totalGridSize / 2,
@@ -20,7 +14,15 @@ export default function Home() {
       x: totalGridSize / 2,
       y: totalGridSize / 2 + 1,
     },
-  ]);
+  ];
+
+  // Game State
+  const [score, setScore] = useState(0);
+  const [food, setFood] = useState({
+    x: 5,
+    y: 5,
+  });
+  const [snake, setSnake] = useState(snakeIntialPosition);
   const [direction, setDirection] = useState("LEFT");
 
   function renderBoard() {
@@ -51,7 +53,25 @@ export default function Home() {
     return cellArray;
   }
 
+  function renderFood() {}
+
+  function gameOver() {
+    setSnake(snakeIntialPosition);
+    setScore(0);
+  }
+
   function updateGame() {
+    // Checking For Game Over
+    if (
+      snake[0].x < 0 ||
+      snake[0].x > 20 ||
+      snake[0].y < 0 ||
+      snake[0].y > 20
+    ) {
+      gameOver();
+      return;
+    }
+
     let newSnake = [...snake];
     if (direction === "UP") {
       newSnake.unshift({ x: newSnake[0].x - 1, y: newSnake[0].y });
@@ -89,8 +109,6 @@ export default function Home() {
         break;
     }
   }
-
-  console.log("direction", direction);
 
   // Handle Events and Effects
   useEffect(() => {
