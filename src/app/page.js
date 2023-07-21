@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   let totalGridSize = 20;
@@ -21,6 +21,7 @@ export default function Home() {
       y: totalGridSize / 2 + 1,
     },
   ]);
+  const [direction, setDirection] = useState("LEFT");
 
   function renderBoard() {
     let cellArray = [];
@@ -49,6 +50,33 @@ export default function Home() {
 
     return cellArray;
   }
+
+  function updateGame() {
+    let newSnake = [...snake];
+    if (direction === "UP") {
+      newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y - 1 });
+    }
+    if (direction === "DOWN") {
+      newSnake.unshift({ x: newSnake[0].x, y: newSnake[0].y + 1 });
+    }
+    if (direction === "LEFT") {
+      newSnake.unshift({ x: newSnake[0].x - 1, y: newSnake[0].y });
+    }
+    if (direction === "RIGHT") {
+      newSnake.unshift({ x: newSnake[0].x + 1, y: newSnake[0].y });
+    }
+
+    newSnake.pop();
+
+    setSnake(newSnake);
+  }
+
+  // Handle Events and Effects
+  useEffect(() => {
+    let moveSnake = setInterval(updateGame, 50);
+
+    return () => clearInterval(moveSnake);
+  });
 
   return (
     <main className='main'>
